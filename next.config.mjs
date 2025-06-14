@@ -11,6 +11,12 @@ const nextConfig = {
                 hostname: "apistore.cybersoft.edu.vn",
                 pathname: "**",
             },
+            {
+                protocol: "https",
+                port: "",
+                hostname: "i.pravatar.cc",
+                pathname: "**",
+            },
         ],
         formats: ["image/webp", "image/avif"],
     },
