@@ -3,6 +3,7 @@ import { Button } from "flowbite-react";
 import Image from "next/image";
 import { getAllProductAction } from "./actions/services/productAPI";
 import Link from "next/link";
+import { isValidImage, placeholderImage } from "./utils/utils";
 // import { useEffect, useState } from "react";
 
 const getAllProduct = async () => {
@@ -20,25 +21,38 @@ export default async function Home() {
 
     return (
         <div className="container mx-auto">
-            <h1 className="text-center text-red-500">Shoe shop</h1>
+            <h1 className="text-center text-red-500 text-5xl mb-4">
+                Shoe shop
+            </h1>
 
             <div className="grid grid-cols-3 gap-2">
                 {data?.map((item) => {
+                    const imageURL = item.image.trimEnd();
+
+                    const isValidUrl = isValidImage(imageURL);
+
                     return (
-                        <div key={item.id} className="border border-amber-800">
+                        <div
+                            key={item.id}
+                            className="border border-amber-800 p-4"
+                        >
                             <Image
-                                src={item.image}
-                                width={200}
-                                height={200}
+                                src={isValidUrl ? item.image : placeholderImage}
+                                width={500}
+                                height={500}
                                 quality={100}
                                 alt={item.name}
+                                className="w-full"
                             />
-
-                            <p>{item.name}</p>
-
+                            <h2 className="text-green-500 text-2xl mt-2">
+                                {item.name}
+                            </h2>
+                            <p className="text-3xl text-red-500 mt-2">
+                                {item.price}$
+                            </p>
                             <Link
                                 href={`/detail/${item.id}`}
-                                className="bg-green-500 p-3 block"
+                                className="bg-green-500 p-3 block mt-3"
                             >
                                 Go to detail
                             </Link>
